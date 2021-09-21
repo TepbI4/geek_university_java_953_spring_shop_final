@@ -1,6 +1,6 @@
-package ru.gb.alekseiterentev.spring_shop_final.beans.services;
+package ru.gb.alekseiterentev.shop.beans.services;
 
-import ru.gb.alekseiterentev.spring_shop_final.model.Product;
+import ru.gb.alekseiterentev.shop.model.Product;
 
 import java.util.List;
 import java.util.Optional;

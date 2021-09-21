@@ -1,10 +1,10 @@
-package ru.gb.alekseiterentev.spring_shop_final.beans.services.impl;
+package ru.gb.alekseiterentev.shop.beans.services.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.gb.alekseiterentev.spring_shop_final.beans.repositories.ProductRepository;
-import ru.gb.alekseiterentev.spring_shop_final.beans.services.ProductService;
-import ru.gb.alekseiterentev.spring_shop_final.model.Product;
+import ru.gb.alekseiterentev.shop.beans.repositories.ProductRepository;
+import ru.gb.alekseiterentev.shop.beans.services.ProductService;
+import ru.gb.alekseiterentev.shop.model.Product;
 
 import java.util.List;
 import java.util.Objects;

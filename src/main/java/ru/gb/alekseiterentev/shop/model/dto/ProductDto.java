@@ -1,8 +1,8 @@
-package ru.gb.alekseiterentev.spring_shop_final.model.dto;
+package ru.gb.alekseiterentev.shop.model.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.gb.alekseiterentev.spring_shop_final.model.Product;
+import ru.gb.alekseiterentev.shop.model.Product;
 
 @Data
 @NoArgsConstructor

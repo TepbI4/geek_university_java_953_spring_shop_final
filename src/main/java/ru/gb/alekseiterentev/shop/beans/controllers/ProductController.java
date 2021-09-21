@@ -1,4 +1,4 @@
-package ru.gb.alekseiterentev.spring_shop_final.beans.controllers;
+package ru.gb.alekseiterentev.shop.beans.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import ru.gb.alekseiterentev.spring_shop_final.beans.services.ProductService;
-import ru.gb.alekseiterentev.spring_shop_final.model.Product;
-import ru.gb.alekseiterentev.spring_shop_final.model.dto.ProductDto;
+import ru.gb.alekseiterentev.shop.beans.services.ProductService;
+import ru.gb.alekseiterentev.shop.model.Product;
+import ru.gb.alekseiterentev.shop.model.dto.ProductDto;
 
 import java.util.List;
 import java.util.Optional;

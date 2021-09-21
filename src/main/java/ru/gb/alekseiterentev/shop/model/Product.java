@@ -1,4 +1,4 @@
-package ru.gb.alekseiterentev.spring_shop_final.model;
+package ru.gb.alekseiterentev.shop.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
