@@ -1,6 +1,7 @@
-package ru.gb.alekseiterentev.spring_shop_final.beans.controllers;
+package ru.gb.alekseiterentev.shop.beans.controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -8,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import ru.gb.alekseiterentev.spring_shop_final.beans.services.ProductService;
-import ru.gb.alekseiterentev.spring_shop_final.model.Product;
-import ru.gb.alekseiterentev.spring_shop_final.model.dto.ProductDto;
+import ru.gb.alekseiterentev.shop.beans.services.ProductService;
+import ru.gb.alekseiterentev.shop.model.Product;
+import ru.gb.alekseiterentev.shop.model.dto.ProductDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,9 +26,14 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping
-    public List<ProductDto> findAllProducts(@RequestParam(required = false) Integer minPrice,
-                                            @RequestParam(required = false) Integer maxPrice) {
-        return productService.findAll(minPrice, maxPrice).stream().map(ProductDto::new).collect(toList());
+    public Page<ProductDto> findAllProducts(@RequestParam(required = true) int page) {
+        return productService.findAll(page - 1, 10).map(ProductDto::new);
+    }
+
+    @GetMapping("/filter")
+    public List<ProductDto> filterByPrice(@RequestParam(required = false) Integer minPrice,
+                                       @RequestParam(required = false) Integer maxPrice) {
+        return productService.filterByPrice(minPrice, maxPrice).stream().map(ProductDto::new).collect(toList());
     }
 
     @GetMapping("/{id}")
