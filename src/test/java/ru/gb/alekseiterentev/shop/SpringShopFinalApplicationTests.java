@@ -1,4 +1,4 @@
-package ru.gb.alekseiterentev.spring_shop_final;
+package ru.gb.alekseiterentev.shop;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
