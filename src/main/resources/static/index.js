@@ -1,8 +1,7 @@
 angular.module('front-index',[]).controller('indexController', function($scope, $http) {
-    const contextPath = 'http://localhost:8189/shop/product'
+    const contextPath = 'http://localhost:8189/shop/api/v1/products'
 
     $scope.pageIndex = 1;
-    $scope.totalPages;
 
     $scope.loadProducts = function () {
         $http({
@@ -19,8 +18,38 @@ angular.module('front-index',[]).controller('indexController', function($scope, 
 
     $scope.deleteProduct = function (id) {
         $http({
-            url: contextPath + /delete/ + id,
-            method: 'GET'
+            url: contextPath + '/' + id,
+            method: 'DELETE'
+        }).then(function (response) {
+            $scope.loadProducts()
+        })
+    }
+
+    $scope.decreasePrice = function (p) {
+        if (p.price - 1 > 0) {
+            $http({
+                url: contextPath,
+                method: 'PUT',
+                data: {
+                    id: p.id,
+                    title: p.title,
+                    price: p.price - 1
+                }
+            }).then(function (response) {
+                $scope.loadProducts()
+            })
+        }
+    }
+
+    $scope.increasePrice = function (p) {
+        $http({
+            url: contextPath,
+            method: 'PUT',
+            data: {
+                id: p.id,
+                title: p.title,
+                price: p.price + 1
+            }
         }).then(function (response) {
             $scope.loadProducts()
         })

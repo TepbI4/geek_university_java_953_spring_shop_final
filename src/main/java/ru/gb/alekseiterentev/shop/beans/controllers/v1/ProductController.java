@@ -1,15 +1,18 @@
-package ru.gb.alekseiterentev.shop.beans.controllers;
+package ru.gb.alekseiterentev.shop.beans.controllers.v1;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ru.gb.alekseiterentev.shop.beans.services.ProductService;
+import ru.gb.alekseiterentev.shop.exceptions.ProductNotFoundException;
 import ru.gb.alekseiterentev.shop.model.Product;
 import ru.gb.alekseiterentev.shop.model.dto.ProductDto;
 
@@ -19,7 +22,7 @@ import java.util.Optional;
 import static java.util.stream.Collectors.toList;
 
 @RestController
-@RequestMapping("/product")
+@RequestMapping("api/v1/products")
 @RequiredArgsConstructor
 public class ProductController {
 
@@ -38,10 +41,11 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public ProductDto findProductById(@PathVariable Long id) {
-        return productService.findById(id).map(ProductDto::new).orElse(null);
+        return productService.findById(id).map(ProductDto::new)
+                .orElseThrow(() -> new ProductNotFoundException("Product with id: " + id + " not found"));
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public ProductDto createProduct(@RequestBody ProductDto productDto) {
         Product product = new Product();
         product.setTitle(productDto.getTitle());
@@ -49,7 +53,16 @@ public class ProductController {
         return Optional.of(productService.save(product)).map(ProductDto::new).orElse(null);
     }
 
-    @GetMapping("/delete/{id}")
+    @PutMapping
+    public ProductDto updateProduct(@RequestBody ProductDto productDto) {
+        Product product = new Product();
+        product.setId(productDto.getId());
+        product.setTitle(productDto.getTitle());
+        product.setPrice(productDto.getPrice());
+        return Optional.of(productService.save(product)).map(ProductDto::new).orElse(null);
+    }
+
+    @DeleteMapping("/{id}")
     public void deleteProduct(@PathVariable Long id) {
         productService.delete(id);
     }
