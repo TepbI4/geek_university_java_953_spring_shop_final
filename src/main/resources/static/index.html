@@ -19,7 +19,9 @@
         <tr>
             <td>id</td>
             <td>title</td>
+            <td></td>
             <td>price</td>
+            <td></td>
             <td></td>
         </tr>
         </thead>
@@ -27,7 +29,13 @@
         <tr ng-repeat="p in productsPage.content">
             <td>{{p.id}}</td>
             <td>{{p.title}}</td>
+            <td>
+                <button class="btn btn-primary" ng-click="decreasePrice(p)">-</button>
+            </td>
             <td>{{p.price}}</td>
+            <td>
+                <button class="btn btn-primary" ng-click="increasePrice(p)">+</button>
+            </td>
             <td>
                 <button class="btn btn-primary" ng-click="deleteProduct(p.id)">Delete</button>
             </td>
