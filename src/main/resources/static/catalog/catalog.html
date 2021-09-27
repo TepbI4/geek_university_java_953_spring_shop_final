@@ -1,0 +1,45 @@
+<div>
+    <p></p>
+    <h1>Catalog</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <td>id</td>
+            <td>title</td>
+            <td></td>
+            <td>price</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="p in productsPage.content">
+            <td>{{p.id}}</td>
+            <td>{{p.title}}</td>
+            <td>
+                <button class="btn btn-primary" ng-click="decreasePrice(p)">-</button>
+            </td>
+            <td>{{p.price}}</td>
+            <td>
+                <button class="btn btn-primary" ng-click="increasePrice(p)">+</button>
+            </td>
+            <td>
+                <button class="btn btn-primary" ng-click="navToEditProductPage(p.id)">Edit</button>
+            </td>
+            <td>
+                <button class="btn btn-primary" ng-click="deleteProduct(p.id)">Delete</button>
+            </td>
+            <td>
+                <button class="btn btn-primary" ng-click="addToCart(p)">Add to Cart</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <button class="btn btn-primary" ng-click="prevPage()"><</button>
+    {{pageIndex}}
+    <button class="btn btn-primary" ng-click="nextPage()">></button>
+    of {{totalPages}}
+    <button class="btn btn-primary" ng-click="loadProducts()">refresh</button>
+</div>
