@@ -1,0 +1,13 @@
+<div>
+    <p></p>
+    <h3>Edit product</h3>
+    <form novalidate ng-submit="updateProduct()">
+        <input class="form-control" type="number" hidden placeholder="ID" ng-model="updated_product.id">
+        <p></p>
+        <input class="form-control" type="text" placeholder="Title" ng-model="updated_product.title">
+        <p></p>
+        <input class="form-control" type="number" placeholder="Price" ng-model="updated_product.price">
+        <p></p>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</div>

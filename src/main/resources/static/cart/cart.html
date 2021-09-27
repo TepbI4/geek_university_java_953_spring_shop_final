@@ -1,0 +1,22 @@
+<div>
+    <p></p>
+    <h1>Cart</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <td>Title</td>
+            <td>Quantity</td>
+            <td>Price</td>
+            <td>Total</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="item in cartItems">
+            <td>{{item.product.title}}</td>
+            <td>{{item.quantity}}</td>
+            <td>{{item.product.price}}</td>
+            <td>{{item.total}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
