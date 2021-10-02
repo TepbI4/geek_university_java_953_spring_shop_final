@@ -1,7 +1,8 @@
 <div>
     <p></p>
     <h1>Cart</h1>
-    <table class="table">
+    <span ng-show="cart.items.length == 0">Your cart is empty</span>
+    <table class="table" ng-show="cart.items.length > 0">
         <thead>
         <tr>
             <td>Title</td>
@@ -11,12 +12,26 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="item in cartItems">
-            <td>{{item.product.title}}</td>
-            <td>{{item.quantity}}</td>
-            <td>{{item.product.price}}</td>
-            <td>{{item.total}}</td>
+        <tr ng-repeat="item in cart.items">
+            <td>{{item.productTitle}}</td>
+            <td>
+                <button class="btn btn-primary" ng-click="decrementItem(item.productId)">-</button>
+                {{item.quantity}}
+                <button class="btn btn-primary" ng-click="incrementItem(item.productId)">+</button>
+                <button class="btn btn-danger" ng-click="removeItem(item.productId)">X</button>
+            </td>
+            <td>{{item.price}}</td>
+            <td>{{item.totalPrice}}</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Total: {{cart.totalCartPrice}}</td>
         </tr>
         </tbody>
     </table>
+    <p></p>
+    <button class="btn btn-primary" ng-click="checkOut()" ng-show="isUserLoggedIn() && cart.items.length > 0">Check Out</button>
+    <button class="btn btn-secondary" ng-click="disabledCheckOut()" ng-show="!isUserLoggedIn() && cart.items.length > 0">Check Out</button>
 </div>

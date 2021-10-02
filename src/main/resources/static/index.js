@@ -30,6 +30,10 @@
                 templateUrl: 'registration/registration.html',
                 controller: 'registrationController'
             })
+            .when('/order_confirmation', {
+                templateUrl: 'order_confirmation/order_confirmation.html',
+                controller: 'orderConfirmationController'
+            })
             .otherwise({
                 redirectTo: '/'
             });
