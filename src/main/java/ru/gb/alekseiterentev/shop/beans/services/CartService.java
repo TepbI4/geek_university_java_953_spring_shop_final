@@ -1,11 +1,11 @@
 package ru.gb.alekseiterentev.shop.beans.services;
 
-import ru.gb.alekseiterentev.shop.model.CartItem;
-import ru.gb.alekseiterentev.shop.model.Product;
-
-import java.util.List;
+import ru.gb.alekseiterentev.shop.utils.Cart;
 
 public interface CartService {
-    void addToCart(Product product);
-    List<CartItem> getCartItems();
+    Cart getCartForCurrentUser();
+    void addItem(Long productId);
+    void removeItem(Long productId);
+    void decreaseItemQuantity(Long productId);
+    void clearCart();
 }

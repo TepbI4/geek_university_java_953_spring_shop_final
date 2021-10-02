@@ -77,8 +77,8 @@ angular.module('front-shop').controller('catalogController', function($scope, $h
         $location.path('/edit_product/' + productId);
     }
 
-    $scope.addToCart = function (p) {
-        $http.post(contextPath + '/api/v1/cart', p);
+    $scope.addToCart = function (productId) {
+        $http.get(contextPath + '/api/v1/cart/add/' + productId);
     }
 
     $scope.loadProducts();

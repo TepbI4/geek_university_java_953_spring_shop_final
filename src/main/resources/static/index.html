@@ -25,13 +25,13 @@
                         <a class="nav-link" href="#!/catalog">Catalog</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#!/create_product">(Administrative function) Add product</a>
+                        <a class="nav-link" href="#!/create_product" ng-show="false">(Administrative function) Add product</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#!/cart">Cart</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#!/registration">Registration</a>
+                        <a class="nav-link" href="#!/registration" ng-show="!isUserLoggedIn()">Registration</a>
                     </li>
 
                     <li class="nav-item" ng-show="!isUserLoggedIn()">
@@ -66,6 +66,7 @@
     <script src="edit_product/edit_product.js"></script>
     <script src="cart/cart.js"></script>
     <script src="registration/registration.js"></script>
+    <script src="order_confirmation/order_confirmation.js"></script>
 </div>
 </body>
 </html>
