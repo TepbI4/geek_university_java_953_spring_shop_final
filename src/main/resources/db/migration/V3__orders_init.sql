@@ -7,3 +7,11 @@ create table orders
     created_at timestamp default current_timestamp,
     updated_at timestamp default current_timestamp
 );
+
+create table order_items
+(
+    id bigserial primary key,
+    order_id bigint references orders (id),
+    product_id bigint,
+    price numeric(6, 2)
+);
