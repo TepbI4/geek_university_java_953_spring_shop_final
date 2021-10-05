@@ -47,7 +47,7 @@ public class OrderController {
         user.ifPresent(order::setUser);
 
         List<OrderItem> orderItems = new ArrayList<>();
-        cartService.getCartForCurrentUser().getItems().forEach(orderItemDto -> {
+        cartService.getCartForCurrentUser(userDetails.getUsername()).getItems().forEach(orderItemDto -> {
             OrderItem orderItem = new OrderItem();
             Product product = productService.findById(orderItemDto.getProductId())
                     .orElseThrow(() -> new ProductNotFoundException("Product with id: " + orderItemDto.getProductId() + " not found"));
@@ -59,6 +59,6 @@ public class OrderController {
         order.setOrderItems(orderItems);
 
         orderService.createOrder(order);
-        cartService.clearCart();
+        cartService.clearCart(userDetails.getUsername());
     }
 }

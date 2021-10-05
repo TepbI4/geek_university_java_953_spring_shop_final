@@ -52,6 +52,7 @@ angular.module('front-shop').controller('indexController', function($rootScope, 
                 if (response.data.token) {
                     $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
                     $localStorage.webMarketUser = {username: $scope.user.username, token: response.data.token};
+                    $localStorage.cartId = $scope.user.username;
 
                     $scope.user.username = null;
                     $scope.user.password = null;
@@ -72,6 +73,7 @@ angular.module('front-shop').controller('indexController', function($rootScope, 
 
     $scope.clearUser = function () {
         delete $localStorage.webMarketUser;
+        delete $localStorage.cartId;
         $http.defaults.headers.common.Authorization = '';
     };
 
@@ -82,4 +84,17 @@ angular.module('front-shop').controller('indexController', function($rootScope, 
             return false;
         }
     };
+
+    $scope.generateCartId = function () {
+        if (!$localStorage.cartId) {
+            $http({
+                url: contextPath + '/api/v1/cart/generate',
+                method: 'GET'
+            }).then(function (response) {
+                $localStorage.cartId = response.data.value;
+            })
+        }
+    }
+
+    $scope.generateCartId();
 });
