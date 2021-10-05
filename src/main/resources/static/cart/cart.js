@@ -1,9 +1,9 @@
-angular.module('front-shop').controller('cartController', function($scope, $http, $location) {
+angular.module('front-shop').controller('cartController', function($scope, $http, $location, $localStorage) {
     const contextPath = 'http://localhost:8189/shop';
 
     $scope.loadCart = function () {
         $http({
-            url: contextPath + '/api/v1/cart',
+            url: contextPath + '/api/v1/cart/' + $localStorage.cartId,
             method: 'GET'
         }).then(function (response) {
             $scope.cart = response.data;
@@ -12,7 +12,7 @@ angular.module('front-shop').controller('cartController', function($scope, $http
 
     $scope.removeItem = function (productId) {
         $http({
-            url: contextPath + '/api/v1/cart/remove/' + productId,
+            url: contextPath + '/api/v1/cart/' + $localStorage.cartId + '/remove/' + productId,
             method: 'GET'
         }).then(function (response) {
             $scope.loadCart()
@@ -21,7 +21,7 @@ angular.module('front-shop').controller('cartController', function($scope, $http
 
     $scope.decrementItem = function (productId) {
         $http({
-            url: contextPath + '/api/v1/cart/decrease/' + productId,
+            url: contextPath + '/api/v1/cart/' + $localStorage.cartId + '/decrease/' + productId,
             method: 'GET'
         }).then(function (response) {
             $scope.loadCart()
@@ -30,7 +30,7 @@ angular.module('front-shop').controller('cartController', function($scope, $http
 
     $scope.incrementItem = function (productId) {
         $http({
-            url: contextPath + '/api/v1/cart/add/' + productId,
+            url: contextPath + '/api/v1/cart/' + $localStorage.cartId + '/add/' + productId,
             method: 'GET'
         }).then(function (response) {
             $scope.loadCart()
@@ -42,7 +42,7 @@ angular.module('front-shop').controller('cartController', function($scope, $http
     }
 
     $scope.disabledCheckOut = function () {
-        alert("Для оформления заказа необходимо войти в учетную запись");
+        alert("Need to log in for check out");
     }
 
     $scope.loadCart();
