@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="products" type="{http://www.alekseiterentev.ru/shop/ws/products}product" maxOccurs="unbounded"/&gt;
+ *         &lt;element name="productWs" type="{http://www.alekseiterentev.ru/shop/ws/products}productWs" maxOccurs="unbounded"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -38,22 +38,22 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "products"
+        "productWs"
 })
 @XmlRootElement(name = "getAllProductsResponse")
 public class GetAllProductsResponse {
 
     @XmlElement(required = true)
-    protected List<Product> products;
+    protected List<ProductWs> productWs;
 
     /**
-     * Gets the value of the products property.
+     * Gets the value of the productWs property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the products property.
+     * This is why there is not a <CODE>set</CODE> method for the productWs property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
@@ -64,15 +64,15 @@ public class GetAllProductsResponse {
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link Product }
+     * {@link ProductWs }
      * 
      * 
      */
-    public List<Product> getProducts() {
-        if (products == null) {
-            products = new ArrayList<Product>();
+    public List<ProductWs> getProducts() {
+        if (productWs == null) {
+            productWs = new ArrayList<ProductWs>();
         }
-        return this.products;
+        return this.productWs;
     }
 
 }

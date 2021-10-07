@@ -11,6 +11,7 @@ import ru.gb.alekseiterentev.shop.ws.model.products.GetAllProductsRequest;
 import ru.gb.alekseiterentev.shop.ws.model.products.GetAllProductsResponse;
 import ru.gb.alekseiterentev.shop.ws.model.products.GetProductByIdRequest;
 import ru.gb.alekseiterentev.shop.ws.model.products.GetProductsByIdResponse;
+import ru.gb.alekseiterentev.shop.ws.model.products.ProductWs;
 
 import java.util.function.Function;
 
@@ -20,8 +21,8 @@ public class ProductEndpoint {
 
     private static final String NAME_SPACE_URI = "http://www.alekseiterentev.ru/shop/ws/products";
     private final ProductService productService;
-    public static final Function<Product, ru.gb.alekseiterentev.shop.ws.model.products.Product> functionEntityToSoap = se -> {
-        ru.gb.alekseiterentev.shop.ws.model.products.Product s = new ru.gb.alekseiterentev.shop.ws.model.products.Product();
+    public static final Function<Product, ProductWs> functionEntityToSoap = se -> {
+        ProductWs s = new ProductWs();
         s.setId(se.getId());
         s.setTitle(se.getTitle());
         s.setPrice(se.getPrice());
