@@ -29,6 +29,8 @@ public class OrderItem {
     @OneToOne
     @JoinColumn(name = "product_id")
     private Product product;
+    @Column(name = "quantity")
+    private int quantity;
     @Column(name = "price")
     private int price;
 }
