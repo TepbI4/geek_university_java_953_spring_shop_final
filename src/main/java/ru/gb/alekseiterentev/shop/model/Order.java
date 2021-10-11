@@ -12,6 +12,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
+import javax.persistence.NamedSubgraph;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -22,6 +25,20 @@ import java.util.Collection;
 @Table(name = "orders")
 @Data
 @NoArgsConstructor
+@NamedEntityGraph(
+        name = "orders.for-front",
+        attributeNodes = {
+                @NamedAttributeNode(value = "orderItems", subgraph = "items")
+        },
+        subgraphs = {
+                @NamedSubgraph(
+                        name = "items",
+                        attributeNodes = {
+                                @NamedAttributeNode("product")
+                        }
+                )
+        }
+)
 public class Order {
 
     @Id
@@ -35,6 +52,8 @@ public class Order {
     @OneToOne
     @JoinColumn(name="user_id")
     private User user;
+    @Column(name = "total")
+    Integer total;
     @CreationTimestamp
     @Column(name = "created_at")
     private LocalDateTime createdAt;

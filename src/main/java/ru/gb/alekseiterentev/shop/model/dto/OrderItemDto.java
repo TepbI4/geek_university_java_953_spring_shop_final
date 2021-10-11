@@ -2,6 +2,7 @@ package ru.gb.alekseiterentev.shop.model.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.gb.alekseiterentev.shop.model.OrderItem;
 import ru.gb.alekseiterentev.shop.model.Product;
 
 @Data
@@ -20,6 +21,13 @@ public class OrderItemDto {
         this.price = product.getPrice();
         this.quantity = 1;
         this.totalPrice = product.getPrice();
+    }
+
+    public OrderItemDto(OrderItem orderItem) {
+        this.productId = orderItem.getProduct().getId();
+        this.productTitle = orderItem.getProduct().getTitle();
+        this.quantity = orderItem.getQuantity();
+        this.price = orderItem.getPrice();
     }
 
     public void changeQuantity(int delta) {

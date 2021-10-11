@@ -1,0 +1,39 @@
+<div class="container">
+    <p></p>
+    <h3>Orders</h3>
+    <table class="table align-middle">
+        <thread scope="col">
+            <tr>
+                <th scope="col">Order ID</th>
+                <th scope="col">Products</th>
+                <th scope="col">Price</th>
+            </tr>
+        </thread>
+        <tbody>
+        <tr ng-repeat="ord in orders">
+            <th scope="row">{{ord.id}}</th>
+            <td>
+                <table class="table align-middle table-bordered">
+                    <thread>
+                        <tr>
+                            <th scope="col">Product ID</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Total</th>
+                        </tr>
+                    </thread>
+                    <tbody>
+                    <tr ng-repeat="i in ord.orderItems">
+                        <td>{{i.productId}}</td>
+                        <td>{{i.productTitle}}</td>
+                        <td>{{i.quantity}}</td>
+                        <td>{{i.price}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+            <th scope="row">{{ord.total}}</th>
+        </tr>
+        </tbody>
+    </table>
+</div>
