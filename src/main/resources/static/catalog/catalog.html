@@ -9,6 +9,7 @@
             <td>price</td>
             <td></td>
             <td></td>
+            <td></td>
         </tr>
         </thead>
         <tbody>
@@ -23,6 +24,9 @@
             </td>
             <td>
                 <button class="btn btn-primary" ng-click="navToEditProductPage(p.id)" ng-show="false">Edit</button>
+            </td>
+            <td>
+                <button class="btn btn-primary" ng-click="navToProductPage(p.id)">Product Info</button>
             </td>
             <td>
                 <button class="btn btn-primary" ng-click="addToCart(p.id)">Add to Cart</button>

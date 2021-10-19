@@ -38,6 +38,10 @@
                 templateUrl: 'orders/orders.html',
                 controller: 'ordersController'
             })
+            .when('/product_info/:productId', {
+                templateUrl: 'product_info/product_info.html',
+                controller: 'productInfoController'
+            })
             .otherwise({
                 redirectTo: '/'
             });

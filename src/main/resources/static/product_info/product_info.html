@@ -1,0 +1,28 @@
+<div class="container">
+    <p></p>
+    <h3>Product Details</h3>
+    <p></p>
+    <p>{{'Product ID: ' + product.id}}</p>
+    <p>{{'Product Title: ' + product.title}}</p>
+    <p>{{'Product Price: ' + product.price}}</p>
+    <br/>
+    <form novalidate ng-submit="createComment()" ng-show="isUserLoggedIn()">
+        <input class="form-control" type="text" placeholder="Comment" ng-model="productComment">
+        <p></p>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <p></p>
+    <p>Comments</p>
+    <table class="table">
+        <thead>
+        <tr>
+            <td>Comment</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="comment in comments">
+            <td>{{comment.comment}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

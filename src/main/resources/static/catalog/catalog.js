@@ -77,6 +77,10 @@ angular.module('front-shop').controller('catalogController', function($scope, $h
         $location.path('/edit_product/' + productId);
     }
 
+    $scope.navToProductPage = function (productId) {
+        $location.path('/product_info/' + productId);
+    }
+
     $scope.addToCart = function (productId) {
         $http.get(contextPath + '/api/v1/cart/' + $localStorage.cartId + '/add/' + productId);
     }
