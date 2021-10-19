@@ -8,11 +8,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.gb.alekseiterentev.shop.beans.services.CommentService;
+import ru.gb.alekseiterentev.shop.beans.services.OrderService;
 import ru.gb.alekseiterentev.shop.beans.services.ProductService;
 import ru.gb.alekseiterentev.shop.exceptions.ProductNotFoundException;
 import ru.gb.alekseiterentev.shop.model.Comment;
 import ru.gb.alekseiterentev.shop.model.dto.CommentDto;
 
+import java.security.Principal;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,6 +26,7 @@ public class CommentController {
 
     private final CommentService commentService;
     private final ProductService productService;
+    private final OrderService orderService;
 
     @GetMapping("/{productId}")
     public List<CommentDto> getProductComments(@PathVariable Long productId) {
@@ -37,5 +40,10 @@ public class CommentController {
                 .orElseThrow(() -> new ProductNotFoundException("Product with id: " + commentDto.getProductId() + " not found")));
         productComment.setComment(commentDto.getComment());
         commentService.createProductComment(productComment);
+    }
+
+    @GetMapping("/{productId}/check")
+    public boolean checkThatUserOrderedProduct(Principal principal, @PathVariable Long productId) {
+        return orderService.checkThatUserOrderedProduct(principal, productId);
     }
 }

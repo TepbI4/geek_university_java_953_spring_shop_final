@@ -36,6 +36,16 @@ angular.module('front-shop').controller('productInfoController', function ($scop
         });
     };
 
+    $scope.checkProductOrderedByUser = function () {
+        $http({
+            url: contextPath + '/api/v1/comments/' + $routeParams.productId + '/check',
+            method: 'GET'
+        }).then(function (response) {
+            $scope.productOrderedByUser = response.data;
+        });
+    };
+
     $scope.loadProduct();
     $scope.loadComments();
+    $scope.checkProductOrderedByUser();
 });

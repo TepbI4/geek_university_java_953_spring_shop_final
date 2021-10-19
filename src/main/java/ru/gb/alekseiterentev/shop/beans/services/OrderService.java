@@ -10,4 +10,5 @@ public interface OrderService {
 
     void createOrder(OrderDetailsDto orderDetails, Principal principal);
     List<Order> findAllByUsername(String username);
+    boolean checkThatUserOrderedProduct(Principal principal, Long productId);
 }

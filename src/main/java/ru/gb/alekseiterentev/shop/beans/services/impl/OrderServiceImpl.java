@@ -17,6 +17,7 @@ import ru.gb.alekseiterentev.shop.model.dto.OrderDetailsDto;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -58,5 +59,13 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<Order> findAllByUsername(String username) {
         return orderRepository.findAllByUsername(username);
+    }
+
+    @Override
+    public boolean checkThatUserOrderedProduct(Principal principal, Long productId) {
+        if (Objects.isNull(principal)) {
+            return false;
+        }
+        return orderRepository.findUserByProduct(productId, principal.getName()).isPresent();
     }
 }

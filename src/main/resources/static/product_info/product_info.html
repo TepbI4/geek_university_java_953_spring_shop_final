@@ -6,7 +6,7 @@
     <p>{{'Product Title: ' + product.title}}</p>
     <p>{{'Product Price: ' + product.price}}</p>
     <br/>
-    <form novalidate ng-submit="createComment()" ng-show="isUserLoggedIn()">
+    <form novalidate ng-submit="createComment()" ng-show="isUserLoggedIn() && productOrderedByUser">
         <input class="form-control" type="text" placeholder="Comment" ng-model="productComment">
         <p></p>
         <button type="submit" class="btn btn-primary">Submit</button>
