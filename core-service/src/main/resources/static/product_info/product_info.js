@@ -1,5 +1,5 @@
 angular.module('front-shop').controller('productInfoController', function ($scope, $http, $routeParams, $location) {
-    const contextPath = 'http://localhost:8189/shop';
+    const contextPath = 'http://localhost:8189/shop-core';
 
     $scope.loadProduct = function () {
         $http({

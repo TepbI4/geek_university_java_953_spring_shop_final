@@ -15,6 +15,7 @@ import ru.gb.alekseiterentev.shop.beans.services.ProductService;
 import ru.gb.alekseiterentev.shop.exceptions.ProductNotFoundException;
 import ru.gb.alekseiterentev.shop.model.Product;
 import ru.gb.alekseiterentev.shop.model.dto.ProductDto;
+import ru.gb.alekseiterentev.shop.utils.Converter;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,21 +28,22 @@ import static java.util.stream.Collectors.toList;
 public class ProductController {
 
     private final ProductService productService;
+    private final Converter converter;
 
     @GetMapping
     public Page<ProductDto> findAllProducts(@RequestParam(required = true) int page) {
-        return productService.findAll(page - 1, 10).map(ProductDto::new);
+        return productService.findAll(page - 1, 10).map(converter::productToDto);
     }
 
     @GetMapping("/filter")
     public List<ProductDto> filterByPrice(@RequestParam(required = false) Integer minPrice,
                                        @RequestParam(required = false) Integer maxPrice) {
-        return productService.filterByPrice(minPrice, maxPrice).stream().map(ProductDto::new).collect(toList());
+        return productService.filterByPrice(minPrice, maxPrice).stream().map(converter::productToDto).collect(toList());
     }
 
     @GetMapping("/{id}")
     public ProductDto findProductById(@PathVariable Long id) {
-        return productService.findById(id).map(ProductDto::new)
+        return productService.findById(id).map(converter::productToDto)
                 .orElseThrow(() -> new ProductNotFoundException("Product with id: " + id + " not found"));
     }
 
@@ -50,7 +52,7 @@ public class ProductController {
         Product product = new Product();
         product.setTitle(productDto.getTitle());
         product.setPrice(productDto.getPrice());
-        return Optional.of(productService.save(product)).map(ProductDto::new).orElse(null);
+        return Optional.of(productService.save(product)).map(converter::productToDto).orElse(null);
     }
 
     @PutMapping
@@ -59,7 +61,7 @@ public class ProductController {
         product.setId(productDto.getId());
         product.setTitle(productDto.getTitle());
         product.setPrice(productDto.getPrice());
-        return Optional.of(productService.save(product)).map(ProductDto::new).orElse(null);
+        return Optional.of(productService.save(product)).map(converter::productToDto).orElse(null);
     }
 
     @DeleteMapping("/{id}")

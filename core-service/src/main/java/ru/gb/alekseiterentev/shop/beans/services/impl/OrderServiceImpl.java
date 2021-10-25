@@ -2,6 +2,7 @@ package ru.gb.alekseiterentev.shop.beans.services.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.gb.alekseiterentev.shop.beans.integration.CartServiceIntegration;
 import ru.gb.alekseiterentev.shop.beans.repositories.OrderRepository;
 import ru.gb.alekseiterentev.shop.beans.services.OrderService;
 import ru.gb.alekseiterentev.shop.beans.services.ProductService;
@@ -23,7 +24,7 @@ import java.util.Optional;
 public class OrderServiceImpl implements OrderService {
 
     private final UserService userService;
-//    private final CartService cartService;
+    private final CartServiceIntegration cartServiceIntegration;
     private final ProductService productService;
     private final OrderRepository orderRepository;
 
@@ -36,22 +37,22 @@ public class OrderServiceImpl implements OrderService {
         order.setAddress(orderDetails.getAddress());
         user.ifPresent(order::setUser);
 
-//        List<OrderItem> orderItems = new ArrayList<>();
-//        cartService.getCartForCurrentUser(principal.getName()).getItems().forEach(orderItemDto -> {
-//            OrderItem orderItem = new OrderItem();
-//            Product product = productService.findById(orderItemDto.getProductId())
-//                    .orElseThrow(() -> new ProductNotFoundException("Product with id: " + orderItemDto.getProductId() + " not found"));
-//            orderItem.setOrder(order);
-//            orderItem.setProduct(product);
-//            orderItem.setPrice(orderItemDto.getPrice());
-//            orderItem.setQuantity(orderItemDto.getQuantity());
-//            orderItems.add(orderItem);
-//        });
-//        order.setOrderItems(orderItems);
-//        order.setTotal(orderItems.stream().map(OrderItem::getPrice).reduce(0, Integer::sum));
-//
-//        orderRepository.save(order);
-//        cartService.clearCart(principal.getName());
+        List<OrderItem> orderItems = new ArrayList<>();
+        cartServiceIntegration.getUserCartDto(principal).getItems().forEach(orderItemDto -> {
+            OrderItem orderItem = new OrderItem();
+            Product product = productService.findById(orderItemDto.getProductId())
+                    .orElseThrow(() -> new ProductNotFoundException("Product with id: " + orderItemDto.getProductId() + " not found"));
+            orderItem.setOrder(order);
+            orderItem.setProduct(product);
+            orderItem.setPrice(orderItemDto.getPrice());
+            orderItem.setQuantity(orderItemDto.getQuantity());
+            orderItems.add(orderItem);
+        });
+        order.setOrderItems(orderItems);
+        order.setTotal(orderItems.stream().map(OrderItem::getPrice).reduce(0, Integer::sum));
+
+        orderRepository.save(order);
+        cartServiceIntegration.clear(principal);
     }
 
     @Override

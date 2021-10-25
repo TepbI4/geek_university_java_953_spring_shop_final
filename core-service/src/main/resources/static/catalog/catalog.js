@@ -1,5 +1,5 @@
 angular.module('front-shop').controller('catalogController', function($scope, $http, $location, $localStorage) {
-    const contextPath = 'http://localhost:8189/shop';
+    const contextPath = 'http://localhost:8189/shop-core';
 
     $scope.pageIndex = 1;
 
@@ -82,7 +82,7 @@ angular.module('front-shop').controller('catalogController', function($scope, $h
     }
 
     $scope.addToCart = function (productId) {
-        $http.get(contextPath + '/api/v1/cart/' + $localStorage.cartId + '/add/' + productId);
+        $http.get('http://localhost:8191/shop-cart/api/v1/cart/' + $localStorage.cartId + '/add/' + productId);
     }
 
     $scope.loadProducts();

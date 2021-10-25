@@ -13,9 +13,9 @@ import ru.gb.alekseiterentev.shop.beans.services.ProductService;
 import ru.gb.alekseiterentev.shop.exceptions.ProductNotFoundException;
 import ru.gb.alekseiterentev.shop.model.Comment;
 import ru.gb.alekseiterentev.shop.model.dto.CommentDto;
+import ru.gb.alekseiterentev.shop.utils.Converter;
 
 import java.security.Principal;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,10 +27,11 @@ public class CommentController {
     private final CommentService commentService;
     private final ProductService productService;
     private final OrderService orderService;
+    private final Converter converter;
 
     @GetMapping("/{productId}")
     public List<CommentDto> getProductComments(@PathVariable Long productId) {
-        return commentService.getProductComments(productId).stream().map(CommentDto::new).collect(Collectors.toList());
+        return commentService.getProductComments(productId).stream().map(converter::commentToDto).collect(Collectors.toList());
     }
 
     @PostMapping

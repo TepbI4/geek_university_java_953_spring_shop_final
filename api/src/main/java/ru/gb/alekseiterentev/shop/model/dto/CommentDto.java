@@ -9,6 +9,11 @@ public class CommentDto {
     public CommentDto() {
     }
 
+    public CommentDto(Long productId, String comment) {
+        this.productId = productId;
+        this.comment = comment;
+    }
+
     public Long getProductId() {
         return productId;
     }

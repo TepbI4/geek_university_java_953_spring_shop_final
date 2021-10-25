@@ -52,10 +52,10 @@
 })();
 
 angular.module('front-shop').controller('indexController', function($rootScope, $scope, $http, $localStorage) {
-    const contextPath = 'http://localhost:8189/shop';
+    const contextPath = 'http://localhost:8189';
 
     $scope.tryToAuth = function () {
-        $http.post(contextPath + '/auth', $scope.user)
+        $http.post(contextPath + '/shop-core/auth', $scope.user)
             .then(function successCallback(response) {
                 if (response.data.token) {
                     $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
@@ -96,7 +96,7 @@ angular.module('front-shop').controller('indexController', function($rootScope, 
     $scope.generateCartId = function () {
         if (!$localStorage.cartId) {
             $http({
-                url: contextPath + '/api/v1/cart/generate',
+                url: 'http://localhost:8191/shop-cart/api/v1/cart/generate',
                 method: 'GET'
             }).then(function (response) {
                 $localStorage.cartId = response.data.value;

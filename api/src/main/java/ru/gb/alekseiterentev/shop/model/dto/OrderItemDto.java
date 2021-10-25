@@ -19,6 +19,14 @@ public class OrderItemDto {
     public OrderItemDto() {
     }
 
+    public OrderItemDto(Long productId, String productTitle, int price, int quantity, int totalPrice) {
+        this.productId = productId;
+        this.productTitle = productTitle;
+        this.price = price;
+        this.quantity = quantity;
+        this.totalPrice = totalPrice;
+    }
+
     public Long getProductId() {
         return productId;
     }

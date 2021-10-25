@@ -10,6 +10,12 @@ public class ProductDto {
     public ProductDto() {
     }
 
+    public ProductDto(Long id, String title, int price) {
+        this.id = id;
+        this.title = title;
+        this.price = price;
+    }
+
     public Long getId() {
         return id;
     }

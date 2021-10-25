@@ -10,6 +10,11 @@ public class CartDto {
     public CartDto() {
     }
 
+    public CartDto(List<OrderItemDto> items, int totalCartPrice) {
+        this.items = items;
+        this.totalCartPrice = totalCartPrice;
+    }
+
     public List<OrderItemDto> getItems() {
         return items;
     }
