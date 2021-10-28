@@ -1,9 +1,9 @@
 angular.module('front-shop').controller('productInfoController', function ($scope, $http, $routeParams, $location) {
-    const contextPath = 'http://localhost:8189/shop-core';
+    const contextPath = 'http://localhost:5555';
 
     $scope.loadProduct = function () {
         $http({
-            url: contextPath + '/api/v1/products/' + $routeParams.productId,
+            url: contextPath + '/core/api/v1/products/' + $routeParams.productId,
             method: 'GET'
         }).then(function (response) {
             $scope.product = response.data;
@@ -12,7 +12,7 @@ angular.module('front-shop').controller('productInfoController', function ($scop
 
     $scope.createComment = function () {
         $http({
-            url: contextPath + '/api/v1/comments',
+            url: contextPath + '/core/api/v1/comments',
             method: 'POST',
             data: {
                 productId: $scope.product.id,
@@ -29,7 +29,7 @@ angular.module('front-shop').controller('productInfoController', function ($scop
 
     $scope.loadComments = function () {
         $http({
-            url: contextPath + '/api/v1/comments/' + $routeParams.productId,
+            url: contextPath + '/core/api/v1/comments/' + $routeParams.productId,
             method: 'GET'
         }).then(function (response) {
             $scope.comments = response.data;
@@ -38,7 +38,7 @@ angular.module('front-shop').controller('productInfoController', function ($scop
 
     $scope.checkProductOrderedByUser = function () {
         $http({
-            url: contextPath + '/api/v1/comments/' + $routeParams.productId + '/check',
+            url: contextPath + '/core/api/v1/comments/' + $routeParams.productId + '/check',
             method: 'GET'
         }).then(function (response) {
             $scope.productOrderedByUser = response.data;
