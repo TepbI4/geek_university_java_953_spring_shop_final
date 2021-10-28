@@ -8,34 +8,43 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
 import ru.gb.alekseiterentev.shop.model.dto.CartDto;
 
 import java.security.Principal;
+import java.util.Collections;
 
 @Component
 @RequiredArgsConstructor
 public class CartServiceIntegration {
 
-    private final RestTemplate restTemplate;
-
-    @Value("${integration.cart-service.url}")
-    private String cartServiceUrl;
+    private final WebClient cartServiceWebClient;
 
     public CartDto getUserCartDto(Principal principal) {
         if (principal == null) {
             throw new RuntimeException("ERROR!!!");
         }
-        MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
-        headers.add("username", principal.getName());
-        return restTemplate.exchange(cartServiceUrl + "/api/v1/cart/" + principal.getName(), HttpMethod.GET, new HttpEntity(headers), CartDto.class).getBody();
+
+        CartDto cartDto = cartServiceWebClient.get()
+                .uri("/api/v1/cart/" + principal.getName())
+                .header("username", principal.getName())
+                .retrieve()
+                .bodyToMono(CartDto.class)
+                .block();
+
+        return cartDto;
     }
 
     public void clear(Principal principal) {
         if (principal == null) {
             throw new RuntimeException("ERROR!!!");
         }
-        MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
-        headers.add("username", principal.getName());
-        restTemplate.exchange(cartServiceUrl + "/api/v1/cart/"+principal.getName() + "/clear", HttpMethod.GET, new HttpEntity(headers), void.class);
+
+        cartServiceWebClient.get()
+                .uri("/api/v1/cart/"+principal.getName() + "/clear")
+                .header("username", principal.getName())
+                .retrieve()
+                .bodyToMono(Void.class)
+                .block();
     }
 }
