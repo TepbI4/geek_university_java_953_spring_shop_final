@@ -1,11 +1,11 @@
 angular.module('front-shop').controller('catalogController', function($scope, $http, $location, $localStorage) {
-    const contextPath = 'http://localhost:8189/shop-core';
+    const contextPath = 'http://localhost:5555';
 
     $scope.pageIndex = 1;
 
     $scope.loadProducts = function () {
         $http({
-            url: contextPath + '/api/v1/products',
+            url: contextPath + '/core/api/v1/products',
             method: 'GET',
             params : {
                 page: $scope.pageIndex
@@ -18,7 +18,7 @@ angular.module('front-shop').controller('catalogController', function($scope, $h
 
     $scope.deleteProduct = function (id) {
         $http({
-            url: contextPath + '/' + id,
+            url: contextPath + '/core/api/v1/products/' + id,
             method: 'DELETE'
         }).then(function (response) {
             $scope.loadProducts()
@@ -28,7 +28,7 @@ angular.module('front-shop').controller('catalogController', function($scope, $h
     $scope.decreasePrice = function (p) {
         if (p.price - 1 > 0) {
             $http({
-                url: contextPath,
+                url: contextPath + '/core/api/v1/products',
                 method: 'PUT',
                 data: {
                     id: p.id,
@@ -43,7 +43,7 @@ angular.module('front-shop').controller('catalogController', function($scope, $h
 
     $scope.increasePrice = function (p) {
         $http({
-            url: contextPath,
+            url: contextPath + '/core/api/v1/products',
             method: 'PUT',
             data: {
                 id: p.id,
@@ -82,7 +82,7 @@ angular.module('front-shop').controller('catalogController', function($scope, $h
     }
 
     $scope.addToCart = function (productId) {
-        $http.get('http://localhost:8191/shop-cart/api/v1/cart/' + $localStorage.cartId + '/add/' + productId);
+        $http.get(contextPath + '/cart/api/v1/cart/' + $localStorage.cartId + '/add/' + productId);
     }
 
     $scope.loadProducts();
