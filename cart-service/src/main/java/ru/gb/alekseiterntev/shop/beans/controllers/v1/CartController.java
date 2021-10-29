@@ -1,7 +1,6 @@
 package ru.gb.alekseiterntev.shop.beans.controllers.v1;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -19,7 +18,6 @@ import java.util.UUID;
 @RestController
 @RequestMapping("api/v1/cart")
 @RequiredArgsConstructor
-@CrossOrigin("*")
 public class CartController {
 
     private final CartService cartService;
