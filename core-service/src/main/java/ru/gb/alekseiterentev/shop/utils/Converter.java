@@ -10,6 +10,7 @@ import ru.gb.alekseiterentev.shop.model.dto.OrderDto;
 import ru.gb.alekseiterentev.shop.model.dto.OrderItemDto;
 import ru.gb.alekseiterentev.shop.model.dto.ProductDto;
 
+import java.math.BigDecimal;
 import java.util.stream.Collectors;
 
 @Component
@@ -25,7 +26,7 @@ public class Converter {
                 , orderItem.getProduct().getTitle()
                 , orderItem.getPrice()
                 , orderItem.getQuantity()
-                , orderItem.getPrice() * orderItem.getQuantity()
+                , orderItem.getPrice().multiply(BigDecimal.valueOf(orderItem.getQuantity()))
         );
     }
 

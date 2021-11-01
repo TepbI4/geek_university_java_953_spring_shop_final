@@ -5,6 +5,7 @@ import lombok.Data;
 import ru.gb.alekseiterentev.shop.model.dto.OrderItemDto;
 import ru.gb.alekseiterentev.shop.model.dto.ProductDto;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
 public class Cart {
 
     private List<OrderItemDto> items;
-    private int totalCartPrice;
+    private BigDecimal totalCartPrice;
 
     public Cart() {
         this.items = new ArrayList<>();
@@ -23,12 +24,13 @@ public class Cart {
         for(OrderItemDto cartItem : items) {
             if (cartItem.getProductId().equals(productDto.getId())) {
                 cartItem.setQuantity(cartItem.getQuantity() + 1);
-                cartItem.setTotalPrice(cartItem.getQuantity() * cartItem.getPrice());
+                cartItem.setTotalPrice(cartItem.getPrice().multiply(BigDecimal.valueOf(cartItem.getQuantity())));
                 recalculateTotalPrice();
                 return;
             }
         }
         items.add(new OrderItemDto(productDto.getId(), productDto.getTitle(), productDto.getPrice(), 1, productDto.getPrice()));
+        recalculateTotalPrice();
     }
 
     public void decrease(Long productId) {
@@ -37,7 +39,7 @@ public class Cart {
             OrderItemDto item = orderItemsIter.next();
             if (item.getProductId().equals(productId)) {
                 item.setQuantity(item.getQuantity() - 1);
-                item.setTotalPrice(item.getQuantity() * item.getPrice());
+                item.setTotalPrice(item.getPrice().multiply(BigDecimal.valueOf(item.getQuantity())));
                 if (item.getQuantity() <= 0) {
                     orderItemsIter.remove();
                 }
@@ -54,11 +56,10 @@ public class Cart {
 
     public void clear() {
         items.clear();
-        totalCartPrice = 0;
+        totalCartPrice = BigDecimal.ZERO;
     }
 
     private void recalculateTotalPrice() {
-        totalCartPrice = 0;
-        items.forEach(cartItem -> totalCartPrice += cartItem.getTotalPrice());
+        totalCartPrice = items.stream().map(OrderItemDto::getTotalPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }

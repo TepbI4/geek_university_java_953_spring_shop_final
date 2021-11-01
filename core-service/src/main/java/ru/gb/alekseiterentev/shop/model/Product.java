@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "products")
@@ -23,5 +24,5 @@ public class Product {
     @Column(name = "title")
     private String title;
     @Column(name = "price")
-    private Integer price;
+    private BigDecimal price;
 }

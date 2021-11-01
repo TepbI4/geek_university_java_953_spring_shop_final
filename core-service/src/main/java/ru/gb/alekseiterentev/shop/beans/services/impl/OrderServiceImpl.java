@@ -2,17 +2,19 @@ package ru.gb.alekseiterentev.shop.beans.services.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.gb.alekseiterentev.shop.beans.integration.CartServiceIntegration;
 import ru.gb.alekseiterentev.shop.beans.repositories.OrderRepository;
 import ru.gb.alekseiterentev.shop.beans.services.OrderService;
 import ru.gb.alekseiterentev.shop.beans.services.ProductService;
-import ru.gb.alekseiterentev.shop.exceptions.ProductNotFoundException;
+import ru.gb.alekseiterentev.shop.exceptions.ResourceNotFoundException;
 import ru.gb.alekseiterentev.shop.model.Order;
 import ru.gb.alekseiterentev.shop.model.OrderItem;
 import ru.gb.alekseiterentev.shop.model.Product;
 import ru.gb.alekseiterentev.shop.model.User;
 import ru.gb.alekseiterentev.shop.model.dto.OrderDetailsDto;
 
+import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,8 +30,9 @@ public class OrderServiceImpl implements OrderService {
     private final ProductService productService;
     private final OrderRepository orderRepository;
 
+    @Transactional
     @Override
-    public void createOrder(OrderDetailsDto orderDetails, Principal principal) {
+    public Order createOrder(OrderDetailsDto orderDetails, Principal principal) {
         Optional<User> user = userService.findByUsername(principal.getName());
 
         Order order = new Order();
@@ -41,7 +44,7 @@ public class OrderServiceImpl implements OrderService {
         cartServiceIntegration.getUserCartDto(principal).getItems().forEach(orderItemDto -> {
             OrderItem orderItem = new OrderItem();
             Product product = productService.findById(orderItemDto.getProductId())
-                    .orElseThrow(() -> new ProductNotFoundException("Product with id: " + orderItemDto.getProductId() + " not found"));
+                    .orElseThrow(() -> new ResourceNotFoundException("Product with id: " + orderItemDto.getProductId() + " not found"));
             orderItem.setOrder(order);
             orderItem.setProduct(product);
             orderItem.setPrice(orderItemDto.getPrice());
@@ -49,10 +52,11 @@ public class OrderServiceImpl implements OrderService {
             orderItems.add(orderItem);
         });
         order.setOrderItems(orderItems);
-        order.setTotal(orderItems.stream().map(OrderItem::getPrice).reduce(0, Integer::sum));
+        order.setTotal(orderItems.stream().map(OrderItem::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add));
 
         orderRepository.save(order);
         cartServiceIntegration.clear(principal);
+        return order;
     }
 
     @Override
@@ -66,5 +70,10 @@ public class OrderServiceImpl implements OrderService {
             return false;
         }
         return orderRepository.findUserByProduct(productId, principal.getName()).isPresent();
+    }
+
+    @Override
+    public Optional<Order> findById(Long id) {
+        return orderRepository.findById(id);
     }
 }

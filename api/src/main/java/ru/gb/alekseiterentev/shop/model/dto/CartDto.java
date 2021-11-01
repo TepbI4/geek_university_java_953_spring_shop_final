@@ -1,16 +1,17 @@
 package ru.gb.alekseiterentev.shop.model.dto;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class CartDto {
 
     private List<OrderItemDto> items;
-    private int totalCartPrice;
+    private BigDecimal totalCartPrice;
 
     public CartDto() {
     }
 
-    public CartDto(List<OrderItemDto> items, int totalCartPrice) {
+    public CartDto(List<OrderItemDto> items, BigDecimal totalCartPrice) {
         this.items = items;
         this.totalCartPrice = totalCartPrice;
     }
@@ -23,11 +24,11 @@ public class CartDto {
         this.items = items;
     }
 
-    public int getTotalCartPrice() {
+    public BigDecimal getTotalCartPrice() {
         return totalCartPrice;
     }
 
-    public void setTotalCartPrice(int totalCartPrice) {
+    public void setTotalCartPrice(BigDecimal totalCartPrice) {
         this.totalCartPrice = totalCartPrice;
     }
 }

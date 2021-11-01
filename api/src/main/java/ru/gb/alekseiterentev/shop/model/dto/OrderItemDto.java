@@ -1,12 +1,14 @@
 package ru.gb.alekseiterentev.shop.model.dto;
 
+import java.math.BigDecimal;
+
 public class OrderItemDto {
 
     private Long productId;
     private String productTitle;
-    private int price;
+    private BigDecimal price;
     private int quantity;
-    private int totalPrice;
+    private BigDecimal totalPrice;
 
     public OrderItemDto(ProductDto product) {
         this.productId = product.getId();
@@ -19,7 +21,7 @@ public class OrderItemDto {
     public OrderItemDto() {
     }
 
-    public OrderItemDto(Long productId, String productTitle, int price, int quantity, int totalPrice) {
+    public OrderItemDto(Long productId, String productTitle, BigDecimal price, int quantity, BigDecimal totalPrice) {
         this.productId = productId;
         this.productTitle = productTitle;
         this.price = price;
@@ -43,11 +45,11 @@ public class OrderItemDto {
         this.productTitle = productTitle;
     }
 
-    public int getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
@@ -59,11 +61,11 @@ public class OrderItemDto {
         this.quantity = quantity;
     }
 
-    public int getTotalPrice() {
+    public BigDecimal getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(int totalPrice) {
+    public void setTotalPrice(BigDecimal totalPrice) {
         this.totalPrice = totalPrice;
     }
 }

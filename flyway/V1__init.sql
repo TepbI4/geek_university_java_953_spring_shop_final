@@ -5,26 +5,26 @@ CREATE TABLE products
     price numeric(6, 2)
 );
 INSERT INTO products (title, price)
-VALUES ('Bread', 40),
-       ('Milk', 80),
-       ('Cheese', 150),
-       ('Sausage', 250),
-       ('Cookies', 90),
-       ('Tea', 200),
-       ('Yogurt', 45),
-       ('Salmon', 500),
-       ('Sugar', 70),
-       ('Salt', 99),
-       ('Eggs', 82),
-       ('Chocolate', 149),
-       ('Cream', 175),
-       ('Butter', 66),
-       ('Beer', 94),
-       ('Coffee', 261),
-       ('Corn', 56),
-       ('Porridge', 138),
-       ('Tomato', 49),
-       ('Wine', 678);
+VALUES ('Bread', 40.15),
+       ('Milk', 80.99),
+       ('Cheese', 150.25),
+       ('Sausage', 250.98),
+       ('Cookies', 90.00),
+       ('Tea', 200.01),
+       ('Yogurt', 45.02),
+       ('Salmon', 500.00),
+       ('Sugar', 70.50),
+       ('Salt', 99.99),
+       ('Eggs', 82.31),
+       ('Chocolate', 149.64),
+       ('Cream', 175.45),
+       ('Butter', 66.99),
+       ('Beer', 94.49),
+       ('Coffee', 261.10),
+       ('Corn', 56.50),
+       ('Porridge', 138.74),
+       ('Tomato', 49.50),
+       ('Wine', 678.00);
 
 create table users
 (
@@ -77,7 +77,7 @@ create table orders
     phone varchar(30) not null,
     address varchar(80) not null,
     user_id bigint references users (id),
-    total integer,
+    total numeric(6, 2),
     created_at timestamp default current_timestamp,
     updated_at timestamp default current_timestamp
 );

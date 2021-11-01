@@ -1,6 +1,7 @@
 package ru.gb.alekseiterentev.shop.model.dto;
 
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,12 +10,12 @@ public class OrderDto {
     private List<OrderItemDto> orderItems;
     private String address;
     private String phone;
-    private int total;
+    private BigDecimal total;
 
     public OrderDto() {
     }
 
-    public OrderDto(Long id, List<OrderItemDto> orderItems, String address, String phone, int total) {
+    public OrderDto(Long id, List<OrderItemDto> orderItems, String address, String phone, BigDecimal total) {
         this.id = id;
         this.orderItems = orderItems;
         this.address = address;
@@ -54,11 +55,11 @@ public class OrderDto {
         this.phone = phone;
     }
 
-    public int getTotal() {
+    public BigDecimal getTotal() {
         return total;
     }
 
-    public void setTotal(int total) {
+    public void setTotal(BigDecimal total) {
         this.total = total;
     }
 }

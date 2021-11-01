@@ -18,6 +18,7 @@ import javax.persistence.NamedSubgraph;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Collection;
 
@@ -53,7 +54,7 @@ public class Order {
     @JoinColumn(name="user_id")
     private User user;
     @Column(name = "total")
-    Integer total;
+    BigDecimal total;
     @CreationTimestamp
     @Column(name = "created_at")
     private LocalDateTime createdAt;

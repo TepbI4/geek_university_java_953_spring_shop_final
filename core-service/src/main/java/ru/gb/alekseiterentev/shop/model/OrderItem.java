@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "order_items")
@@ -32,5 +33,5 @@ public class OrderItem {
     @Column(name = "quantity")
     private int quantity;
     @Column(name = "price")
-    private int price;
+    private BigDecimal price;
 }
