@@ -31,7 +31,7 @@ angular.module('front-shop').controller('orderPayController', function ($scope, 
                     }
                 }).then(function(response) {
                     response.text().then(msg => alert(msg));
-
+                    $location.path('/orders');
                 });
             },
 
