@@ -5,6 +5,7 @@
         <thread scope="col">
             <tr>
                 <th scope="col">Order ID</th>
+                <th scope="col">Order Status</th>
                 <th scope="col">Products</th>
                 <th scope="col">Total</th>
             </tr>
@@ -12,6 +13,7 @@
         <tbody>
         <tr ng-repeat="ord in orders">
             <th scope="row">{{ord.id}}</th>
+            <th scope="row">{{ord.status}}</th>
             <td>
                 <table class="table align-middle table-bordered">
                     <thread>

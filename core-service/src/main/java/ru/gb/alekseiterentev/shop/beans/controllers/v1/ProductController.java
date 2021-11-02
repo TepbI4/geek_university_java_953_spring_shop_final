@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ru.gb.alekseiterentev.shop.beans.services.ProductService;
-import ru.gb.alekseiterentev.shop.exceptions.ProductNotFoundException;
+import ru.gb.alekseiterentev.shop.exceptions.ResourceNotFoundException;
 import ru.gb.alekseiterentev.shop.model.Product;
 import ru.gb.alekseiterentev.shop.model.dto.ProductDto;
 import ru.gb.alekseiterentev.shop.utils.Converter;
@@ -44,7 +44,7 @@ public class ProductController {
     @GetMapping("/{id}")
     public ProductDto findProductById(@PathVariable Long id) {
         return productService.findById(id).map(converter::productToDto)
-                .orElseThrow(() -> new ProductNotFoundException("Product with id: " + id + " not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Product with id: " + id + " not found"));
     }
 
     @PostMapping

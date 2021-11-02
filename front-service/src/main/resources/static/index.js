@@ -42,6 +42,10 @@
                 templateUrl: 'product_info/product_info.html',
                 controller: 'productInfoController'
             })
+            .when('/order_pay/:orderId', {
+                templateUrl: 'order_pay/order_pay.html',
+                controller: 'orderPayController'
+            })
             .otherwise({
                 redirectTo: '/'
             });

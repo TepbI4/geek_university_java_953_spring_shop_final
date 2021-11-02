@@ -10,6 +10,7 @@ import ru.gb.alekseiterentev.shop.model.dto.OrderDto;
 import ru.gb.alekseiterentev.shop.model.dto.OrderItemDto;
 import ru.gb.alekseiterentev.shop.model.dto.ProductDto;
 
+import java.math.BigDecimal;
 import java.util.stream.Collectors;
 
 @Component
@@ -25,12 +26,12 @@ public class Converter {
                 , orderItem.getProduct().getTitle()
                 , orderItem.getPrice()
                 , orderItem.getQuantity()
-                , orderItem.getPrice() * orderItem.getQuantity()
+                , orderItem.getPrice().multiply(BigDecimal.valueOf(orderItem.getQuantity()))
         );
     }
 
     public OrderDto orderToDto(Order order) {
-        return new OrderDto(order.getId(), order.getOrderItems().stream().map(this::orderItemToDto).collect(Collectors.toList()), order.getAddress(), order.getPhone(), order.getTotal());
+        return new OrderDto(order.getId(), order.getStatus().name(), order.getOrderItems().stream().map(this::orderItemToDto).collect(Collectors.toList()), order.getAddress(), order.getPhone(), order.getTotal());
     }
 
     public CommentDto commentToDto(Comment comment) {

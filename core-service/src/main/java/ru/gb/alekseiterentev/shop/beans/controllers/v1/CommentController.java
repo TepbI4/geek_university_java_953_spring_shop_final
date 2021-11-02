@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.gb.alekseiterentev.shop.beans.services.CommentService;
 import ru.gb.alekseiterentev.shop.beans.services.OrderService;
 import ru.gb.alekseiterentev.shop.beans.services.ProductService;
-import ru.gb.alekseiterentev.shop.exceptions.ProductNotFoundException;
+import ru.gb.alekseiterentev.shop.exceptions.ResourceNotFoundException;
 import ru.gb.alekseiterentev.shop.model.Comment;
 import ru.gb.alekseiterentev.shop.model.dto.CommentDto;
 import ru.gb.alekseiterentev.shop.utils.Converter;
@@ -38,7 +38,7 @@ public class CommentController {
     public void createComment(@RequestBody CommentDto commentDto) {
         Comment productComment = new Comment();
         productComment.setProduct(productService.findById(commentDto.getProductId())
-                .orElseThrow(() -> new ProductNotFoundException("Product with id: " + commentDto.getProductId() + " not found")));
+                .orElseThrow(() -> new ResourceNotFoundException("Product with id: " + commentDto.getProductId() + " not found")));
         productComment.setComment(commentDto.getComment());
         commentService.createProductComment(productComment);
     }

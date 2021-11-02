@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 public class ProductExceptionHandler {
 
     @org.springframework.web.bind.annotation.ExceptionHandler
-    public ResponseEntity<?> catchProductNotFoundException(ProductNotFoundException e) {
+    public ResponseEntity<?> catchProductNotFoundException(ResourceNotFoundException e) {
         return new ResponseEntity<>(new ExceptionMessage(e.getMessage()), HttpStatus.NOT_FOUND);
     }
 }

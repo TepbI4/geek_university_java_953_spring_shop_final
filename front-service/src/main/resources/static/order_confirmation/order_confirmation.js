@@ -17,7 +17,8 @@ angular.module('front-shop').controller('orderConfirmationController', function(
             data: $scope.orderDetails
         }).then(function (response) {
             alert('Your order has been successfully created');
-            $location.path('/');
+            var orderId = response.data.value;
+            $location.path('/order_pay/' + orderId);
         });
     };
 
