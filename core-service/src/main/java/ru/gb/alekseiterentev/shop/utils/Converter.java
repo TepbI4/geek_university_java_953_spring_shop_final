@@ -31,7 +31,7 @@ public class Converter {
     }
 
     public OrderDto orderToDto(Order order) {
-        return new OrderDto(order.getId(), order.getOrderItems().stream().map(this::orderItemToDto).collect(Collectors.toList()), order.getAddress(), order.getPhone(), order.getTotal());
+        return new OrderDto(order.getId(), order.getStatus().name(), order.getOrderItems().stream().map(this::orderItemToDto).collect(Collectors.toList()), order.getAddress(), order.getPhone(), order.getTotal());
     }
 
     public CommentDto commentToDto(Comment comment) {

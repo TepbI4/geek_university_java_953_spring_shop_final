@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.gb.alekseiterentev.shop.beans.services.OrderService;
 import ru.gb.alekseiterentev.shop.beans.services.PayPalService;
+import ru.gb.alekseiterentev.shop.exceptions.ResourceNotFoundException;
+import ru.gb.alekseiterentev.shop.model.OrderStatus;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -45,7 +47,10 @@ public class PayPalController {
         Order payPalOrder = response.result();
         if ("COMPLETED".equals(payPalOrder.status())) {
             long orderId = Long.parseLong(payPalOrder.purchaseUnits().get(0).referenceId());
-            Optional<ru.gb.alekseiterentev.shop.model.Order> orderOptional = orderService.findById(orderId);
+            ru.gb.alekseiterentev.shop.model.Order order = orderService.findById(orderId)
+                    .orElseThrow(() -> new ResourceNotFoundException("Order not found!"));
+            order.setStatus(OrderStatus.PAYED);
+            orderService.save(order);
             return new ResponseEntity<>("Order completed!", HttpStatus.valueOf(response.statusCode()));
         }
         return new ResponseEntity<>(payPalOrder, HttpStatus.valueOf(response.statusCode()));

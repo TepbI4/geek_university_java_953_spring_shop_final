@@ -10,6 +10,7 @@ import ru.gb.alekseiterentev.shop.beans.services.ProductService;
 import ru.gb.alekseiterentev.shop.exceptions.ResourceNotFoundException;
 import ru.gb.alekseiterentev.shop.model.Order;
 import ru.gb.alekseiterentev.shop.model.OrderItem;
+import ru.gb.alekseiterentev.shop.model.OrderStatus;
 import ru.gb.alekseiterentev.shop.model.Product;
 import ru.gb.alekseiterentev.shop.model.User;
 import ru.gb.alekseiterentev.shop.model.dto.OrderDetailsDto;
@@ -36,6 +37,7 @@ public class OrderServiceImpl implements OrderService {
         Optional<User> user = userService.findByUsername(principal.getName());
 
         Order order = new Order();
+        order.setStatus(OrderStatus.POSTED);
         order.setPhone(orderDetails.getPhone());
         order.setAddress(orderDetails.getAddress());
         user.ifPresent(order::setUser);
@@ -75,5 +77,10 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Optional<Order> findById(Long id) {
         return orderRepository.findById(id);
+    }
+
+    @Override
+    public Order save(Order order) {
+        return orderRepository.save(order);
     }
 }

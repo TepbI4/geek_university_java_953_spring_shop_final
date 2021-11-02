@@ -13,4 +13,5 @@ public interface OrderService {
     List<Order> findAllByUsername(String username);
     boolean checkThatUserOrderedProduct(Principal principal, Long productId);
     Optional<Order> findById(Long id);
+    Order save(Order order);
 }

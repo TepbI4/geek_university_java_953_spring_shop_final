@@ -8,6 +8,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -48,6 +50,9 @@ public class Order {
     private Long id;
     @Column(name = "phone")
     private String phone;
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
     @Column(name = "address")
     private String address;
     @OneToOne
