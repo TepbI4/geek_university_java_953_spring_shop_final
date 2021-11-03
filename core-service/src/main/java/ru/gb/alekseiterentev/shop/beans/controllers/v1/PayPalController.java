@@ -19,7 +19,6 @@ import ru.gb.alekseiterentev.shop.exceptions.ResourceNotFoundException;
 import ru.gb.alekseiterentev.shop.model.OrderStatus;
 
 import java.io.IOException;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/api/v1/paypal")
@@ -28,6 +27,9 @@ public class PayPalController {
     private final PayPalHttpClient payPalClient;
     private final OrderService orderService;
     private final PayPalService payPalService;
+
+    // login: sb-jncaq8270274@personal.example.com
+    // password: uTpiX_1/
 
     @PostMapping("/create/{orderId}")
     public ResponseEntity<?> createOrder(@PathVariable Long orderId) throws IOException {
