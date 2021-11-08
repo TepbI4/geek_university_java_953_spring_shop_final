@@ -28,9 +28,6 @@ public class PayPalController {
     private final OrderService orderService;
     private final PayPalService payPalService;
 
-    // login: sb-jncaq8270274@personal.example.com
-    // password: uTpiX_1/
-
     @PostMapping("/create/{orderId}")
     public ResponseEntity<?> createOrder(@PathVariable Long orderId) throws IOException {
         OrdersCreateRequest request = new OrdersCreateRequest();
